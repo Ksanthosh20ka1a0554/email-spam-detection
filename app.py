@@ -1,5 +1,5 @@
 from flask import Flask,request,render_template
-import pickle4 as pickle
+import pickle
 from sklearn.feature_extraction.text import TfidfVectorizer
 import nltk
 import string
