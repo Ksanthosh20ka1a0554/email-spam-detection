@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Main Page{% endblock %}
+
+{% block body %}
+<form action="/review" method="POST" class="m-5">
+    <div class="container">
+        <h2>Please enter the message to predict Spam/Not Spam</h2>
+        <div class="row">
+            <div class="col">
+                
+            </div>
+            <div class="col">
+                <textarea class="form-control m-3"  name="message" rows="6" cols="50" placeholder="Enter Your Message..."></textarea>
+                <button class="btn btn-dark m-2" type="submit">Submit</button>
+            </div>
+            <div class="col">
+                
+            </div>
+        </div>
+    </div>
+</form>
+
+{% if final_result %}
+    <div id="resultModal" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Prediction Result</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    {% if final_result == 'spam' %}
+                        <div class="alert alert-danger" role="alert">
+                            <strong>Spam:</strong> This message is classified as spam.
+                        </div>
+                        <img class="fa-shake" id="prediction-image" src="{{url_for('static', filename='spam_image.jpg')}}"alt="result">
+                    {% else %}
+                        <div class="alert alert-success" role="alert">
+                            <strong>Not Spam:</strong> This message is classified as not spam.
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var resultModal = document.getElementById('resultModal');
+            var modal = new bootstrap.Modal(resultModal);
+            modal.show();
+
+            var closeButton = resultModal.querySelector('.btn-close');
+            closeButton.addEventListener('click', function() {
+                modal.hide();
+            });
+        });
+    </script>
+{% endif %}
+
+{% endblock %}
