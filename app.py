@@ -3,7 +3,8 @@ import pickle
 from sklearn.feature_extraction.text import TfidfVectorizer
 import nltk
 import string
-
+nltk.download('punkt')
+nltk.download('stopwords')
 def get_importantFeatures(sent):
     sent = sent.lower()
     return [i for i in nltk.word_tokenize(sent) if i.isalnum()]
