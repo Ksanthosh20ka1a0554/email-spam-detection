@@ -1,4 +1,4 @@
-pickle4
+joblib
 nltk
 flask
 scikit-learn

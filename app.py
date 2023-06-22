@@ -1,16 +1,16 @@
 from flask import Flask,request,render_template
-import pickle
+import joblib
 from sklearn.feature_extraction.text import TfidfVectorizer
 import nltk
 import string
 nltk.download('punkt')
 nltk.download('stopwords')
 
-with open('svm_model.pkl', 'rb') as file:
-            loaded_model = pickle.load(file)
 
-with open('tfidf_vectorizer.pkl', 'rb') as file:
-    tfidf = pickle.load(file)
+loaded_model = joblib.load("svm_model.joblib")
+
+
+tfidf = joblib.load("tfidf_vectorizer.joblib")
 
 def get_importantFeatures(sent):
     sent = sent.lower()
@@ -39,4 +39,4 @@ def predict():
     return render_template('index.html',final_result=prediction[0])
 
 # if __name__ == '__main__':
-#     app.run(debug = True)
+#      app.run(debug = True)
