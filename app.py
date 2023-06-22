@@ -1,5 +1,5 @@
 from flask import Flask,request,render_template
-import pickle
+import pickle4 as pickle
 from sklearn.feature_extraction.text import TfidfVectorizer
 import nltk
 import string
@@ -11,7 +11,7 @@ with open('svm_model.pkl', 'rb') as file:
 
 with open('tfidf_vectorizer.pkl', 'rb') as file:
     tfidf = pickle.load(file)
-    
+
 def get_importantFeatures(sent):
     sent = sent.lower()
     return [i for i in nltk.word_tokenize(sent) if i.isalnum()]

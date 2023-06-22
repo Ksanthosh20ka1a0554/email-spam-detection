@@ -1,3 +1,4 @@
+pickle4
 nltk
 flask
 scikit-learn
