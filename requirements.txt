@@ -3,4 +3,4 @@ nltk
 flask
 scikit-learn
 gunicorn
-scipy
+scipy==1.7.0
