@@ -2,3 +2,4 @@ nltk
 flask
 scikit-learn
 gunicorn
+scipy

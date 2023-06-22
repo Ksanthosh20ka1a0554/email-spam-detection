@@ -5,6 +5,13 @@ import nltk
 import string
 nltk.download('punkt')
 nltk.download('stopwords')
+
+with open('svm_model.pkl', 'rb') as file:
+            loaded_model = pickle.load(file)
+
+with open('tfidf_vectorizer.pkl', 'rb') as file:
+    tfidf = pickle.load(file)
+    
 def get_importantFeatures(sent):
     sent = sent.lower()
     return [i for i in nltk.word_tokenize(sent) if i.isalnum()]
@@ -27,10 +34,6 @@ def predict():
          test_message=request.form['message']
          processed_message = perform_stemming(remove_stopwords_and_punctuation(get_importantFeatures(test_message)))
          processed_message_str = ' '.join(processed_message)
-         with open('svm_model.pkl', 'rb') as file:
-            loaded_model = pickle.load(file)
-         with open('tfidf_vectorizer.pkl', 'rb') as file:
-            tfidf = pickle.load(file)
          test_message_tfidf = tfidf.transform([processed_message_str])
          prediction = loaded_model.predict(test_message_tfidf)
     return render_template('index.html',final_result=prediction[0])
