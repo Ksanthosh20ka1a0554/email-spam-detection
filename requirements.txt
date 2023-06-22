@@ -1,6 +1,4 @@
-joblib
 nltk
 flask
 scikit-learn
 gunicorn
-scipy==1.7.3

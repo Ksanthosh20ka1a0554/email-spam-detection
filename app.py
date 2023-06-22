@@ -1,5 +1,5 @@
 from flask import Flask,request,render_template
-import joblib
+import pickle
 from sklearn.feature_extraction.text import TfidfVectorizer
 import nltk
 import string
@@ -7,7 +7,12 @@ nltk.download('punkt')
 nltk.download('stopwords')
 
 
-loaded_model = joblib.load("svm_model.joblib")
+with open('tfidf_vectorizer.pkl', 'wb') as file:
+    tfidf = pickle.load(file)
+
+with open('svm_model.pkl', 'wb') as file:
+    loaded_model = pickle.load(file)
+
 
 
 tfidf = joblib.load("tfidf_vectorizer.joblib")
