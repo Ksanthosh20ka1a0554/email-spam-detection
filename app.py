@@ -54,5 +54,5 @@ def predict():
          prediction = classifier.predict(test_message_tfidf)
     return render_template('index.html',final_result=prediction[0])
 
-if __name__ == '__main__':
-     app.run(debug = True)
+# if __name__ == '__main__':
+#      app.run(debug = True)
