@@ -7,10 +7,10 @@ nltk.download('punkt')
 nltk.download('stopwords')
 
 
-with open('tfidf_vectorizer.pkl', 'wb') as file:
+with open('tfidf_vectorizer.pkl', 'rb') as file:
     tfidf = pickle.load(file)
 
-with open('svm_model.pkl', 'wb') as file:
+with open('svm_model.pkl', 'rb') as file:
     loaded_model = pickle.load(file)
 
 
