@@ -51,7 +51,7 @@ def load_object(file_path):
         with open(file_path,'rb') as file_obj:
             return pickle.load(file_obj)
     except Exception as e:
-        raise CustomException(e,sys)
+        raise Exception(e)
 
 loaded_model = load_object('svm_model.pkl')
 
