@@ -40,13 +40,28 @@ def perform_stemming(sent):
 # classifier = SVC(kernel='linear')
 # classifier.fit(X_train_tfidf, y_train)
 
-with open('svm_model.pkl', 'rb') as file:
-    loaded_model = joblib.load(file)
-with open('tfidf_vectorizer.pkl', 'rb') as file:
-    tfidf = joblib.load(file)
+# with open('svm_model.pkl', 'rb') as file:
+#     loaded_model = joblib.load(file)
+# with open('tfidf_vectorizer.pkl', 'rb') as file:
+#     tfidf = joblib.load(file)
+
+
+def load_object(file_path):
+    try:
+        with open(file_path,'rb') as file_obj:
+            return pickle.load(file_obj)
+    except Exception as e:
+        logging.info('Exception Occured in load_object function utils')
+        raise CustomException(e,sys)
+
+loaded_model = load_object('svm_model.pkl')
+
+tfidf = load_object('tfidf_vectorizer.pkl')
+
+
 
 app = Flask(__name__)
-@app.route('/')
+@app.route("/")
 def hello():
     return render_template('index.html')
 
