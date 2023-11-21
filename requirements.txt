@@ -2,5 +2,6 @@ nltk
 flask
 scikit-learn
 scipy
+joblib==1.3.2
 gunicorn
 pandas
