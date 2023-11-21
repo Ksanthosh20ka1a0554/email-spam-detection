@@ -1,5 +1,6 @@
 from flask import Flask,request,render_template
 import pickle
+import joblib
 import pandas as pd
 import nltk
 import string
@@ -40,9 +41,9 @@ def perform_stemming(sent):
 # classifier.fit(X_train_tfidf, y_train)
 
 with open('svm_model.pkl', 'rb') as file:
-    loaded_model = pickle.load(file)
+    loaded_model = joblib.load(file)
 with open('tfidf_vectorizer.pkl', 'rb') as file:
-    tfidf = pickle.load(file)
+    tfidf = joblib.load(file)
 
 app = Flask(__name__)
 @app.route('/')
