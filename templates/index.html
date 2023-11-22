@@ -11,7 +11,7 @@
                 
             </div>
             <div class="col">
-                <textarea class="form-control m-3"  name="message" rows="6" cols="50" placeholder="Enter Your Message..."></textarea>
+                <textarea class="form-control m-3" name="message" rows="6" cols="50" placeholder="Enter Your Message..."></textarea>
                 <button class="btn btn-dark m-2" type="submit">Submit</button>
             </div>
             <div class="col">
@@ -33,30 +33,46 @@
                     {% if final_result == 'spam' %}
                         <div class="alert alert-danger" role="alert">
                             <strong>Spam:</strong> This message is classified as spam.
+                            <audio id="spamAudio" src="{{url_for('static', filename='alarm.mp3')}}"></audio>
+                            <img class="fa-shake" id="prediction-image" src="{{url_for('static', filename='spam_image.jpg')}}" alt="result">
                         </div>
-                        <img class="fa-shake" id="prediction-image" src="{{url_for('static', filename='spam_image.jpg')}}"alt="result">
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                var resultModal = document.getElementById('resultModal');
+                                var modal = new bootstrap.Modal(resultModal);
+                                modal.show();
+
+                                var closeButton = resultModal.querySelector('.btn-close');
+                                closeButton.addEventListener('click', function() {
+                                    modal.hide();
+                                });
+
+                                // Play sound when spam is detected
+                                var spamAudio = document.getElementById('spamAudio');
+                                spamAudio.play();
+                            });
+                        </script>
                     {% else %}
                         <div class="alert alert-success" role="alert">
                             <strong>Not Spam:</strong> This message is classified as not spam.
                         </div>
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                var resultModal = document.getElementById('resultModal');
+                                var modal = new bootstrap.Modal(resultModal);
+                                modal.show();
+
+                                var closeButton = resultModal.querySelector('.btn-close');
+                                closeButton.addEventListener('click', function() {
+                                    modal.hide();
+                                });
+                            });
+                        </script>
                     {% endif %}
                 </div>
             </div>
         </div>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var resultModal = document.getElementById('resultModal');
-            var modal = new bootstrap.Modal(resultModal);
-            modal.show();
-
-            var closeButton = resultModal.querySelector('.btn-close');
-            closeButton.addEventListener('click', function() {
-                modal.hide();
-            });
-        });
-    </script>
 {% endif %}
 
 {% endblock %}
