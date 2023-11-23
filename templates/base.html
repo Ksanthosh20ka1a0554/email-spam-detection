@@ -7,15 +7,100 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.css"></link>
+    <style>
+        body {
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            user-select: none;
+            z-index: -1; /* Place the canvas behind the content */
+        }
+
+        h1, h3 {
+            z-index: 1;
+            color: green; /* Text color on top of the matrix */
+        }
+
+        @keyframes fallingCode {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(100vh);
+            }
+        }
+    </style>
     <title>Email Message Spam Detector</title>
     {% block head %}{% endblock %}
 </head>
 <body>
-    <h1 class="text-center fw-bold display-4">EMAIL SPAM DETECTION WITH SVM ALOGORITHM</h1>
-    <h3 class="text-center mt-4 display-6" style="margin-left: 30%;font-family: Cursive;">-By Santhosh</h3>
+    <canvas id="perampokgoogle"></canvas>
+    <h1 class="text-center text-white fw-bold display-4">EMAIL SPAM DETECTION WITH SVM ALOGORITHM</h1>
+    <h3 class="text-center text-white mt-4 display-6" style="font-family: Cursive;">-By Santhosh</h3>
     {% block body %}{% endblock %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        window.addEventListener('load', eventWindowLoaded, false);
+
+        function eventWindowLoaded() {
+            canvasApp(); // Include the whole Canvas application
+        }
+
+        function canvasSupport(e) {
+            return !!e.getContext;
+        }
+
+        function canvasApp() {
+            var canvas = document.getElementById('perampokgoogle');
+
+            if (!canvasSupport(perampokgoogle)) {
+                return;
+            }
+
+            var ctx = canvas.getContext('2d');
+            var w = canvas.width = window.innerWidth;
+            var h = canvas.height = window.innerHeight;
+            var yPositions = Array(300).join(0).split('');
+
+            function runMatrix() {
+                if (typeof Game_Interval != 'undefined') clearInterval(Game_interval);
+                Game_Interval = setInterval(drawScreen, 33);
+            }
+
+            function drawScreen() {
+                ctx.fillStyle = 'rgba(0,0,0,.05)';
+                ctx.fillRect(0, 0, w, h);
+                ctx.fillStyle = '#0f0';
+                ctx.font = '10px Georgia';
+                yPositions.map(function(y, index) {
+                    text = String.fromCharCode(1e2 + Math.random() * 33);
+                    x = (index * 10) + 10;
+                    ctx.fillText(text, x, y);
+                    if (y > 100 + Math.random() * 1e4) {
+                        yPositions[index] = 0;
+                    } else {
+                        yPositions[index] = y + 10;
+                    }
+                })
+            }
+
+            runMatrix();
+        }
+    </script>
 </body>
 </html>
